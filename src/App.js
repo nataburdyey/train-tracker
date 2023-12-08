@@ -1,14 +1,10 @@
+import { Table } from './components/Table';
 import { ThemeToggle } from './components/ThemeToggle';
 import { useState, useEffect } from 'react';
 
 import { useFilter } from './useFilter';
-import { getLineColor, getAliases, getInitialDarkMode } from './utils/helpers';
-import {
-  SyncIcon,
-  TrainCarPassengerIcon,
-  TrainCarContainerIcon,
-  TrainCarCenterbeamIcon
-} from './components/icons';
+import { getInitialDarkMode } from './utils/helpers';
+import { SyncIcon } from './components/icons';
 
 const CACHE_TIME = 1000 * 60 * 2; // 2 minutes
 const AUTO_REFRESH_TIME = 1000 * 60 * 2; // 2 minutes
@@ -110,41 +106,6 @@ const App = () => {
     filtered = filterBy('DirectionNum', directionFilter, filtered);
   }
 
-  const renderTrainCars = (train) => {
-    const cars = [];
-    for (let i = 1; i <= train.CarCount; i++) {
-      switch (train.ServiceType) {
-        case 'Normal':
-          cars.push(
-            <TrainCarPassengerIcon
-              key={i}
-              title={i}
-              aria-label='Passenger car'
-            />
-          );
-          break;
-        case 'NoPassengers':
-          cars.push(
-            <TrainCarContainerIcon
-              key={i}
-              title={i}
-              aria-label='No passengers car'
-            />
-          );
-          break;
-        default:
-          cars.push(
-            <TrainCarCenterbeamIcon
-              key={i}
-              title={i}
-              aria-label='Unknown car'
-            />
-          );
-      }
-    }
-    return cars;
-  };
-
   if (loading) {
     return <div className='loading'></div>;
   }
@@ -152,7 +113,10 @@ const App = () => {
   return (
     <main role='main'>
       <header>
-      <ThemeToggle isDarkTheme={isDarkTheme} toggleDarkTheme={toggleDarkTheme}  />
+        <ThemeToggle
+          isDarkTheme={isDarkTheme}
+          toggleDarkTheme={toggleDarkTheme}
+        />
         <h1 aria-label='WMATA Train Positions'>WMATA Train Positions</h1>
         <button
           className='btn-refresh'
@@ -181,39 +145,9 @@ const App = () => {
         </nav>
         <section className='train-info'>
           {!loading && (
-            <table>
-              <thead>
-                <tr>
-                  <th>Train Number</th>
-                  <th>Direction</th>
-                  <th>Circuit ID</th>
-                  <th>Destination</th>
-                  <th>Line Color</th>
-                  <th>Seconds at Location</th>
-                  <th>Service Type</th>
-                  <th>Car Count</th>
-                  <th>Cars</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filtered.map((train) => (
-                  <tr
-                    key={train.TrainId}
-                    style={{ backgroundColor: getLineColor(train.LineCode) }}
-                  >
-                    <td>{train.TrainNumber}</td>
-                    <td>{getAliases('DirectionNum', train.DirectionNum)}</td>
-                    <td>{train.CircuitId}</td>
-                    <td>{train.DestinationStationCode}</td>
-                    <td>{getAliases('LineCode', train.LineCode)}</td>
-                    <td>{train.SecondsAtLocation}</td>
-                    <td>{getAliases('ServiceType', train.ServiceType)}</td>
-                    <td>{train.CarCount}</td>
-                    <td>{renderTrainCars(train)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <Table
+              filtered={filtered}
+            />
           )}
         </section>
       </div>
