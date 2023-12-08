@@ -1,3 +1,4 @@
+import { ThemeToggle } from './components/ThemeToggle';
 import { useState, useEffect } from 'react';
 
 import { useFilter } from './useFilter';
@@ -6,9 +7,7 @@ import {
   SyncIcon,
   TrainCarPassengerIcon,
   TrainCarContainerIcon,
-  TrainCarCenterbeamIcon,
-  MoonWaxingCrescentIcon,
-  WhiteBalanceSunnyIcon,
+  TrainCarCenterbeamIcon
 } from './components/icons';
 
 const CACHE_TIME = 1000 * 60 * 2; // 2 minutes
@@ -153,19 +152,7 @@ const App = () => {
   return (
     <main role='main'>
       <header>
-        <section className='toggle-container'>
-          <button className='dark-toggle'>
-            {isDarkTheme ? (
-              <button className='toggle-icon' onClick={toggleDarkTheme}>
-                <WhiteBalanceSunnyIcon />
-              </button>
-            ) : (
-              <button className='toggle-icon' onClick={toggleDarkTheme}>
-                <MoonWaxingCrescentIcon />
-              </button>
-            )}
-          </button>
-        </section>
+      <ThemeToggle isDarkTheme={isDarkTheme} toggleDarkTheme={toggleDarkTheme}  />
         <h1 aria-label='WMATA Train Positions'>WMATA Train Positions</h1>
         <button
           className='btn-refresh'

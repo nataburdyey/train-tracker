@@ -51,6 +51,12 @@ Variables
   --darkModeTransition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
+/*
+=============== 
+Dark Theme
+===============
+*/
+
 .dark-theme {
   --backgroundColor: var(--dark-mode-bg-color);
   --textColor: var(--dark-mode-text-color);
@@ -62,6 +68,11 @@ Variables
 
 .dark-theme thead   {
   color: var(--dark-mode-text-color);
+}
+
+.dark-theme .btn-refresh {
+  background-color: var(--clr-grey-5);
+  border: 1px solid #222;
 }
 
 /*
@@ -99,7 +110,7 @@ code {
 
 /* 
 ========
-Toggle Container
+Theme Toggle Container
 ========
 */
 
@@ -134,6 +145,12 @@ Toggle Container
   border: none;
 }
 
+/*
+=============== 
+Main
+===============
+*/
+
 header {
   width: 100%;
   text-align: center;
@@ -159,8 +176,8 @@ header {
 }
 
 .btn-refresh {
-  margin: 0 0.5rem;
-  padding: 0.5rem 0.7rem;
+  margin: 0 0rem;
+  padding: 0.2rem 0.2rem 0.0rem 0.2rem;
   border-radius: 0.3rem;
   background-color: #f5f5f5;
   border: 1px solid #e0e0e0;
