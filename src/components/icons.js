@@ -15,7 +15,7 @@ export const SyncIcon = (props) => {
   );
 };
 
-export const TrainCarPassenger = (props) => {
+export const TrainCarPassengerIcon = (props) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -32,7 +32,7 @@ export const TrainCarPassenger = (props) => {
   );
 };
 
-export const TrainCarContainer = (props) => {
+export const TrainCarContainerIcon = (props) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -49,7 +49,7 @@ export const TrainCarContainer = (props) => {
   );
 };
 
-export const TrainCarCenterbeam = (props) => {
+export const TrainCarCenterbeamIcon = (props) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -83,7 +83,7 @@ export const CheckIcon = (props) => {
   );
 };
 
-export const CheckIconBold = (props) => {
+export const MoonWaxingCrescentIcon = (props) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -94,7 +94,24 @@ export const CheckIconBold = (props) => {
     >
       <path
         fill='currentColor'
-        d='m9 20.42l-6.21-6.21l2.83-2.83L9 14.77l9.88-9.89l2.83 2.83L9 20.42Z'
+        d='M12 2a9.91 9.91 0 0 0-3 .46a10 10 0 0 1 0 19.08A10 10 0 1 0 12 2Z'
+      ></path>
+    </svg>
+  );
+};
+
+export const WhiteBalanceSunnyIcon = (props) => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='1em'
+      height='1em'
+      viewBox='0 0 24 24'
+      {...props}
+    >
+      <path
+        fill='currentColor'
+        d='m3.55 19.09l1.41 1.41l1.8-1.79l-1.42-1.42M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6c0-3.32-2.69-6-6-6m8 7h3v-2h-3m-2.76 7.71l1.8 1.79l1.41-1.41l-1.79-1.8M20.45 5l-1.41-1.4l-1.8 1.79l1.42 1.42M13 1h-2v3h2M6.76 5.39L4.96 3.6L3.55 5l1.79 1.81l1.42-1.42M1 13h3v-2H1m12 9h-2v3h2'
       ></path>
     </svg>
   );

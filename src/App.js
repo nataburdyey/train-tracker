@@ -1,20 +1,25 @@
 import { useState, useEffect } from 'react';
 
-import { getLineColor, getAliases } from './utils/helpers';
+import { useFilter } from './useFilter';
+import { getLineColor, getAliases, getInitialDarkMode } from './utils/helpers';
 import {
   SyncIcon,
-  TrainCarPassenger,
-  TrainCarContainer,
-  TrainCarCenterbeam,
+  TrainCarPassengerIcon,
+  TrainCarContainerIcon,
+  TrainCarCenterbeamIcon,
+  MoonWaxingCrescentIcon,
+  WhiteBalanceSunnyIcon,
 } from './components/icons';
-import { useFilter } from './useFilter';
 
 const CACHE_TIME = 1000 * 60 * 2; // 2 minutes
 const AUTO_REFRESH_TIME = 1000 * 60 * 2; // 2 minutes
 
+console.log('initial', getInitialDarkMode());
+
 const App = () => {
   const [trainData, setTrainData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [isDarkTheme, setIsDarkTheme] = useState(getInitialDarkMode());
   const [colorFilter, ColorSelect] = useFilter(
     'LineCode',
     'Line Color',
@@ -41,6 +46,12 @@ const App = () => {
     trainData.data
   );
 
+  const toggleDarkTheme = () => {
+    const newDarkTheme = !isDarkTheme;
+    console.log('new', newDarkTheme);
+    setIsDarkTheme(newDarkTheme);
+    localStorage.setItem('darkTheme', newDarkTheme);
+  };
 
   const fetchTrainPositions = async (force = false) => {
     // check if data stored in the local storage
@@ -76,15 +87,20 @@ const App = () => {
   };
 
   useEffect(() => {
+    document.body.classList.toggle('dark-theme', isDarkTheme);
+    console.log(document.body.classList);
+    console.log('useEffect', isDarkTheme);
     fetchTrainPositions();
     const interval = setInterval(() => {
       fetchTrainPositions();
     }, AUTO_REFRESH_TIME);
     return () => clearInterval(interval);
-  }, []);
+  }, [isDarkTheme]);
 
   const filterBy = (key, value, data) =>
-    data.filter((train) => (train[key] || '(blank)') == value || value === 'all');
+    data.filter(
+      (train) => (train[key] || '(blank)') == value || value === 'all'
+    );
 
   let filtered = [];
   if (trainData.data) {
@@ -101,12 +117,16 @@ const App = () => {
       switch (train.ServiceType) {
         case 'Normal':
           cars.push(
-            <TrainCarPassenger key={i} title={i} aria-label='Passenger car' />
+            <TrainCarPassengerIcon
+              key={i}
+              title={i}
+              aria-label='Passenger car'
+            />
           );
           break;
         case 'NoPassengers':
           cars.push(
-            <TrainCarContainer
+            <TrainCarContainerIcon
               key={i}
               title={i}
               aria-label='No passengers car'
@@ -115,7 +135,11 @@ const App = () => {
           break;
         default:
           cars.push(
-            <TrainCarCenterbeam key={i} title={i} aria-label='Unknown car' />
+            <TrainCarCenterbeamIcon
+              key={i}
+              title={i}
+              aria-label='Unknown car'
+            />
           );
       }
     }
@@ -129,9 +153,22 @@ const App = () => {
   return (
     <main role='main'>
       <header>
+        <section className='toggle-container'>
+          <button className='dark-toggle'>
+            {isDarkTheme ? (
+              <button className='toggle-icon' onClick={toggleDarkTheme}>
+                <WhiteBalanceSunnyIcon />
+              </button>
+            ) : (
+              <button className='toggle-icon' onClick={toggleDarkTheme}>
+                <MoonWaxingCrescentIcon />
+              </button>
+            )}
+          </button>
+        </section>
         <h1 aria-label='WMATA Train Positions'>WMATA Train Positions</h1>
         <button
-        className='btn-refresh'
+          className='btn-refresh'
           aria-label='Refresh Train Positions'
           onClick={() => fetchTrainPositions(true)}
         >
@@ -143,7 +180,6 @@ const App = () => {
         </span>
       </header>
       <div className='container'>
-        {' '}
         <nav className='filters'>
           <form>
             <ColorSelect aria-label='Line Color' />
@@ -156,7 +192,7 @@ const App = () => {
             </button>
           </form>
         </nav>
-        <section>
+        <section className='train-info'>
           {!loading && (
             <table>
               <thead>

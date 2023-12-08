@@ -13,3 +13,11 @@ export const getUniqueValues = (data, key) => {
 export const getAliases = (key, value) => {
   return aliases?.[key]?.[value] || value;
 };
+
+export const getInitialDarkMode = () => {
+  const prefersDarkMode = window.matchMedia(
+    "(prefers-color-scheme:dark)"
+  ).matches;
+  const storedDarkMode = localStorage.getItem("darkTheme") === "true";
+  return storedDarkMode || prefersDarkMode;
+};
