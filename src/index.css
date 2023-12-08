@@ -40,3 +40,40 @@ main {
   display: flex;
   flex-direction: column;
 }
+
+.colors {
+  display: flex;
+  align-items: center;
+}
+.color-btn {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: #222;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: #222 1px solid;
+}
+
+.color-btn svg {
+  width: 2rem;
+  color: var(--clr-white);
+}
+
+.all-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  opacity: 0.5;
+}
+.active {
+  opacity: 1;
+}
+.all-btn .active {
+  text-decoration: underline;
+}

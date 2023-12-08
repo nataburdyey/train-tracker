@@ -65,3 +65,37 @@ export function TrainCarCenterbeam(props) {
     </svg>
   );
 }
+
+export function CheckIcon(props) {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='2em'
+      height='2em'
+      viewBox='0 0 24 24'
+      {...props}
+    >
+      <path
+        fill='currentColor'
+        d='M21 7L9 19l-5.5-5.5l1.41-1.41L9 16.17L19.59 5.59L21 7Z'
+      ></path>
+    </svg>
+  );
+}
+
+export function CheckIconBold(props) {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='1em'
+      height='1em'
+      viewBox='0 0 24 24'
+      {...props}
+    >
+      <path
+        fill='currentColor'
+        d='m9 20.42l-6.21-6.21l2.83-2.83L9 14.77l9.88-9.89l2.83 2.83L9 20.42Z'
+      ></path>
+    </svg>
+  );
+}

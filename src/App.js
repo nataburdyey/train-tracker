@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { getLineColor, getDirection, getAliases } from './utils/helpers';
-import './App.css';
+import { getLineColor, getAliases } from './utils/helpers';
 import {
   SyncIcon,
   TrainCarPassenger,
@@ -33,11 +32,11 @@ function App() {
   );
 
   const fetchTrainPositions = async (force = false) => {
-    // check if we have data in local storage
+    // check if data stored in the local storage
     const dataStr = localStorage.getItem('trainData');
     const data = dataStr && JSON.parse(dataStr);
 
-    // check if not expired
+    // check if data not expired
     if (!force && data && data.expires > Date.now()) {
       setTrainData(data);
       setLoading(false);
@@ -100,15 +99,23 @@ function App() {
     return cars;
   };
 
+  if (loading && !trainData.data) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <main>
       <div className='filters'>
-        <ColorSelect />
-        <ServiceTypeSelect />
-        <CarCountSelect />
+        <form>
+          <ColorSelect />
+          <ServiceTypeSelect />
+          <CarCountSelect />
+          <button type='reset' className='btn-clear'>
+            Clear Filters
+          </button>
+        </form>
       </div>
       <div className='trainInfo'>
-        {loading && <p>Loading...</p>}
         <h1>
           WMATA Train Positions
           <span role='img' aria-label='train'>
@@ -147,7 +154,7 @@ function App() {
                   style={{ backgroundColor: getLineColor(train.LineCode) }}
                 >
                   <td>{train.TrainNumber}</td>
-                  <td>{getDirection(train.DirectionNum)}</td>
+                  <td>{getAliases('DirectionNum', train.DirectionNum)}</td>
                   <td>{train.CircuitId}</td>
                   <td>{train.DestinationStationCode}</td>
                   <td>{getAliases('LineCode', train.LineCode)}</td>
