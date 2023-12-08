@@ -73,7 +73,13 @@ code {
     monospace;
 }
 
-main {
+header {
+  margin-top: 2rem;
+  width: 100%;
+  text-align: center;
+}
+
+.container {
   display: flex;
   flex-direction: row;
   justify-items: space-between;

@@ -87,13 +87,23 @@ const App = () => {
     for (let i = 1; i <= train.CarCount; i++) {
       switch (train.ServiceType) {
         case 'Normal':
-          cars.push(<TrainCarPassenger key={i} title={i} aria-label='Passenger car'/>);
+          cars.push(
+            <TrainCarPassenger key={i} title={i} aria-label='Passenger car' />
+          );
           break;
         case 'NoPassengers':
-          cars.push(<TrainCarContainer key={i} title={i} aria-label='No passengers car'/>);
+          cars.push(
+            <TrainCarContainer
+              key={i}
+              title={i}
+              aria-label='No passengers car'
+            />
+          );
           break;
         default:
-          cars.push(<TrainCarCenterbeam key={i} title={i} aria-label='Unknown car'/>);
+          cars.push(
+            <TrainCarCenterbeam key={i} title={i} aria-label='Unknown car' />
+          );
       }
     }
     return cars;
@@ -104,70 +114,70 @@ const App = () => {
   }
 
   return (
-    <main>
-      <div className='filters'>
-        <form>
-          <ColorSelect />
-          <ServiceTypeSelect />
-          <CarCountSelect />
-          <button type='reset' className='btn-clear'>
-            Clear Filters
-          </button>
-        </form>
-      </div>
-      <div className='trainInfo'>
-        <h1 aria-label='WMATA Train Positions'>
-          WMATA Train Positions
-          <span role='img' aria-label='train'>
-            🚆
-          </span>
-          <button
-            className='btn-refresh'
-            onClick={() => fetchTrainPositions(true)}
-            aria-label='Refresh train data'
-          >
-            <SyncIcon width='1.5em' height='1.5em' />
-          </button>
-          <span className='last-updated'>
-            Last updated{' '}
-            {new Date(trainData.expires - CACHE_TIME).toLocaleTimeString()}
-          </span>
-        </h1>
-        {!loading && (
-          <table>
-            <thead>
-              <tr>
-                <th>Train Number</th>
-                <th>Direction</th>
-                <th>Circuit ID</th>
-                <th>Destination</th>
-                <th>Line Color</th>
-                <th>Seconds at Location</th>
-                <th>Service Type</th>
-                <th>Car Count</th>
-                <th>Cars</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.map((train) => (
-                <tr
-                  key={train.TrainId}
-                  style={{ backgroundColor: getLineColor(train.LineCode) }}
-                >
-                  <td>{train.TrainNumber}</td>
-                  <td>{getAliases('DirectionNum', train.DirectionNum)}</td>
-                  <td>{train.CircuitId}</td>
-                  <td>{train.DestinationStationCode}</td>
-                  <td>{getAliases('LineCode', train.LineCode)}</td>
-                  <td>{train.SecondsAtLocation}</td>
-                  <td>{getAliases('ServiceType', train.ServiceType)}</td>
-                  <td>{train.CarCount}</td>
-                  <td>{renderTrainCars(train)}</td>
+    <main role='main'>
+      <header>
+        <h1 aria-label='WMATA Train Positions'>WMATA Train Positions</h1>
+        <button
+        className='btn-refresh'
+          aria-label='Refresh Train Positions'
+          onClick={() => fetchTrainPositions(true)}
+        >
+          <SyncIcon width='1.5em' height='1.5em' />
+        </button>
+        <span className='last-updated'>
+          Last updated{' '}
+          {new Date(trainData.expires - CACHE_TIME).toLocaleTimeString()}
+        </span>
+      </header>
+      <div className='container'>
+        {' '}
+        <nav className='filters'>
+          <form>
+            <ColorSelect aria-label='Line Color' />
+            <ServiceTypeSelect aria-label='Service Type' />
+            <CarCountSelect aria-label='Car Count' />
+            <button type='reset' className='btn-clear'>
+              Clear Filters
+            </button>
+          </form>
+        </nav>
+        <section className='trainInfo'>
+          {!loading && (
+            <table>
+              <thead>
+                <tr>
+                  <th>Train Number</th>
+                  <th>Direction</th>
+                  <th>Circuit ID</th>
+                  <th>Destination</th>
+                  <th>Line Color</th>
+                  <th>Seconds at Location</th>
+                  <th>Service Type</th>
+                  <th>Car Count</th>
+                  <th>Cars</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+              </thead>
+              <tbody>
+                {filtered.map((train) => (
+                  <tr
+                    key={train.TrainId}
+                    style={{ backgroundColor: getLineColor(train.LineCode) }}
+                  >
+                    <td>{train.TrainNumber}</td>
+                    <td>{getAliases('DirectionNum', train.DirectionNum)}</td>
+                    <td>{train.CircuitId}</td>
+                    <td>{train.DestinationStationCode}</td>
+                    <td>{getAliases('LineCode', train.LineCode)}</td>
+                    <td>{train.SecondsAtLocation}</td>
+                    <td>{getAliases('ServiceType', train.ServiceType)}</td>
+                    <td>{train.CarCount}</td>
+                    <td>{renderTrainCars(train)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </section>
       </div>
     </main>
   );
