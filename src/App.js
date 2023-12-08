@@ -103,7 +103,7 @@ const App = () => {
   }
 
   if (loading) {
-    return <div className='loading'></div>;
+    return <div className='loading' data-testid='loading'></div>;
   }
 
   return (

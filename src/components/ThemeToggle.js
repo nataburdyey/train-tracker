@@ -6,17 +6,17 @@ import {
 const ThemeToggle = ({ isDarkTheme, toggleDarkTheme }) => {
   return (
     <section className='toggle-container'>
-      <button className='dark-toggle'>
+      <div className='dark-toggle'>
         {isDarkTheme ? (
-          <button className='toggle-icon' onClick={toggleDarkTheme}>
+          <button className='toggle-icon' data-testid='toggle-icon' onClick={toggleDarkTheme}>
             <WhiteBalanceSunnyIcon />
           </button>
         ) : (
-          <button className='toggle-icon' onClick={toggleDarkTheme}>
+          <button className='toggle-icon' data-testid='toggle-icon' onClick={toggleDarkTheme}>
             <MoonWaxingCrescentIcon />
           </button>
         )}
-      </button>
+      </div>
     </section>
   );
 };
