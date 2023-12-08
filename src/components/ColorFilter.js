@@ -2,6 +2,7 @@ import { CheckIcon } from './icons';
 import { getLineColor } from '../utils/helpers';
 
 const ColorFilter = ({ name, innerRef, label, value, options, onChange }) => {
+  console.log(options);
   return (
     <div className='filter' ref={innerRef}>
       <label className='filter-label' htmlFor={name}>
@@ -17,7 +18,7 @@ const ColorFilter = ({ name, innerRef, label, value, options, onChange }) => {
               name='color'
               style={{ background: getLineColor(color) }}
               className={`${value === color ? 'color-btn active' : 'color-btn'}`}
-              onClick={(e) => onChange(e.target.value)}
+              onClick={(e) => {console.log(e.target.value); onChange(e.target.value || 'all')}}
               value={color}
             >
               {value === color ? <CheckIcon /> : null}

@@ -5,9 +5,9 @@ export const getLineColor = (lineCode) => {
 };
 
 export const getUniqueValues = (data, key) => {
-  let unique = data.map((item) => item[key]);
+  let unique = data.map((item) => item[key] || '(blank)');
 
-  return [...new Set(unique)];
+  return [...new Set(unique)].sort();
 };
 
 export const getAliases = (key, value) => {

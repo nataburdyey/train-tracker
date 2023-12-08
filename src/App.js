@@ -30,6 +30,17 @@ const App = () => {
     'Car Count',
     trainData.data
   );
+  const [destinationFilter, DestinationSelect] = useFilter(
+    'DestinationStationCode',
+    'Destination',
+    trainData.data
+  );
+  const [directionFilter, DirectionSelect] = useFilter(
+    'DirectionNum',
+    'Direction',
+    trainData.data
+  );
+
 
   const fetchTrainPositions = async (force = false) => {
     // check if data stored in the local storage
@@ -73,13 +84,15 @@ const App = () => {
   }, []);
 
   const filterBy = (key, value, data) =>
-    data.filter((train) => train[key] == value || value === 'all');
+    data.filter((train) => (train[key] || '(blank)') == value || value === 'all');
 
   let filtered = [];
   if (trainData.data) {
     filtered = filterBy('LineCode', colorFilter, trainData.data);
     filtered = filterBy('ServiceType', serviceTypeFilter, filtered);
     filtered = filterBy('CarCount', carCountFilter, filtered);
+    filtered = filterBy('DestinationStationCode', destinationFilter, filtered);
+    filtered = filterBy('DirectionNum', directionFilter, filtered);
   }
 
   const renderTrainCars = (train) => {
@@ -136,12 +149,14 @@ const App = () => {
             <ColorSelect aria-label='Line Color' />
             <ServiceTypeSelect aria-label='Service Type' />
             <CarCountSelect aria-label='Car Count' />
+            <DestinationSelect aria-label='Destination' />
+            <DirectionSelect aria-label='Direction' />
             <button type='reset' className='btn-clear'>
               Clear Filters
             </button>
           </form>
         </nav>
-        <section className='trainInfo'>
+        <section>
           {!loading && (
             <table>
               <thead>

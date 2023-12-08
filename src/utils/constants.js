@@ -8,6 +8,9 @@ export const lineColors = {
 };
 
 export const aliases = {
+  CarCount: {
+    "(blank)": '0',
+  },
   DirectionNum: {
     1: 'Northbound',
     2: 'Southbound',
