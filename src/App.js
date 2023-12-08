@@ -17,7 +17,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [colorFilter, ColorSelect] = useFilter(
     'LineCode',
-    'Select Color',
+    'Line Color',
     trainData.data
   );
   const [serviceTypeFilter, ServiceTypeSelect] = useFilter(
@@ -87,20 +87,20 @@ const App = () => {
     for (let i = 1; i <= train.CarCount; i++) {
       switch (train.ServiceType) {
         case 'Normal':
-          cars.push(<TrainCarPassenger key={i} title={i} />);
+          cars.push(<TrainCarPassenger key={i} title={i} aria-label='Passenger car'/>);
           break;
         case 'NoPassengers':
-          cars.push(<TrainCarContainer key={i} title={i} />);
+          cars.push(<TrainCarContainer key={i} title={i} aria-label='No passengers car'/>);
           break;
         default:
-          cars.push(<TrainCarCenterbeam key={i} title={i} />);
+          cars.push(<TrainCarCenterbeam key={i} title={i} aria-label='Unknown car'/>);
       }
     }
     return cars;
   };
 
-  if (loading && !trainData.data) {
-    return <p>Loading...</p>;
+  if (loading) {
+    return <div className='loading'></div>;
   }
 
   return (
@@ -116,7 +116,7 @@ const App = () => {
         </form>
       </div>
       <div className='trainInfo'>
-        <h1>
+        <h1 aria-label='WMATA Train Positions'>
           WMATA Train Positions
           <span role='img' aria-label='train'>
             🚆
@@ -124,6 +124,7 @@ const App = () => {
           <button
             className='btn-refresh'
             onClick={() => fetchTrainPositions(true)}
+            aria-label='Refresh train data'
           >
             <SyncIcon width='1.5em' height='1.5em' />
           </button>
@@ -139,12 +140,12 @@ const App = () => {
                 <th>Train Number</th>
                 <th>Direction</th>
                 <th>Circuit ID</th>
-                <th>Destination Station Code</th>
+                <th>Destination</th>
                 <th>Line Color</th>
                 <th>Seconds at Location</th>
                 <th>Service Type</th>
                 <th>Car Count</th>
-                <th className='cars'>Cars</th>
+                <th>Cars</th>
               </tr>
             </thead>
             <tbody>
