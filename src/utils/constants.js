@@ -7,11 +7,6 @@ export const lineColors = {
   SV: '#f2f2f2',
 };
 
-export const directions = {
-  1: 'Northbound',
-  2: 'Southbound',
-};
-
 export const aliases = {
   DirectionNum: {
     1: 'Northbound',
