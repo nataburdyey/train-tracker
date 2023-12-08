@@ -3,7 +3,7 @@ import {
   WhiteBalanceSunnyIcon,
 } from '../components/icons';
 
-export const ThemeToggle = ({ isDarkTheme, toggleDarkTheme }) => {
+const ThemeToggle = ({ isDarkTheme, toggleDarkTheme }) => {
   return (
     <section className='toggle-container'>
       <button className='dark-toggle'>
@@ -20,3 +20,5 @@ export const ThemeToggle = ({ isDarkTheme, toggleDarkTheme }) => {
     </section>
   );
 };
+
+export default ThemeToggle;

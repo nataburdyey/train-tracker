@@ -1,15 +1,10 @@
-import { Table } from './components/Table';
-import { ThemeToggle } from './components/ThemeToggle';
 import { useState, useEffect } from 'react';
 
-import { useFilter } from './useFilter';
-import { getInitialDarkMode } from './utils/helpers';
+import { Table, ThemeToggle } from './components';
 import { SyncIcon } from './components/icons';
-
-const CACHE_TIME = 1000 * 60 * 2; // 2 minutes
-const AUTO_REFRESH_TIME = 1000 * 60 * 2; // 2 minutes
-
-console.log('initial', getInitialDarkMode());
+import { useFilter } from './useFilter';
+import { CACHE_TIME, AUTO_REFRESH_TIME } from './utils/constants';
+import { getInitialDarkMode } from './utils/helpers';
 
 const App = () => {
   const [trainData, setTrainData] = useState({});
@@ -20,21 +15,25 @@ const App = () => {
     'Line Color',
     trainData.data
   );
+
   const [serviceTypeFilter, ServiceTypeSelect] = useFilter(
     'ServiceType',
     'Service Type',
     trainData.data
   );
+
   const [carCountFilter, CarCountSelect] = useFilter(
     'CarCount',
     'Car Count',
     trainData.data
   );
+
   const [destinationFilter, DestinationSelect] = useFilter(
     'DestinationStationCode',
     'Destination',
     trainData.data
   );
+
   const [directionFilter, DirectionSelect] = useFilter(
     'DirectionNum',
     'Direction',
@@ -43,17 +42,15 @@ const App = () => {
 
   const toggleDarkTheme = () => {
     const newDarkTheme = !isDarkTheme;
-    console.log('new', newDarkTheme);
     setIsDarkTheme(newDarkTheme);
     localStorage.setItem('darkTheme', newDarkTheme);
   };
 
   const fetchTrainPositions = async (force = false) => {
-    // check if data stored in the local storage
+    // Verify if data exists in local storage and is not expired
     const dataStr = localStorage.getItem('trainData');
     const data = dataStr && JSON.parse(dataStr);
 
-    // check if data not expired
     if (!force && data && data.expires > Date.now()) {
       setTrainData(data);
       setLoading(false);
@@ -83,8 +80,7 @@ const App = () => {
 
   useEffect(() => {
     document.body.classList.toggle('dark-theme', isDarkTheme);
-    console.log(document.body.classList);
-    console.log('useEffect', isDarkTheme);
+
     fetchTrainPositions();
     const interval = setInterval(() => {
       fetchTrainPositions();
@@ -144,11 +140,7 @@ const App = () => {
           </form>
         </nav>
         <section className='train-info'>
-          {!loading && (
-            <Table
-              filtered={filtered}
-            />
-          )}
+          {!loading && <Table filtered={filtered} />}
         </section>
       </div>
     </main>

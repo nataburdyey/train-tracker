@@ -33,7 +33,7 @@ const renderTrainCars = (train) => {
   return cars;
 };
 
-export function Table({ filtered }) {
+const Table = ({ filtered }) => {
   return (
     <table>
       <thead>
@@ -71,4 +71,6 @@ export function Table({ filtered }) {
       </tbody>
     </table>
   );
-}
+};
+
+export default Table;

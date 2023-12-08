@@ -1,3 +1,6 @@
+export const CACHE_TIME = 1000 * 60 * 2; // 2 minutes
+export const AUTO_REFRESH_TIME = 1000 * 60 * 2; // 2 minutes
+
 export const lineColors = {
   RD: '#ff9999',
   BL: '#99ccff',
@@ -9,7 +12,7 @@ export const lineColors = {
 
 export const aliases = {
   CarCount: {
-    "(blank)": '0',
+    '(blank)': '0',
   },
   DirectionNum: {
     1: 'Northbound',
