@@ -1,4 +1,4 @@
-export function SyncIcon(props) {
+export const SyncIcon = (props) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -13,9 +13,9 @@ export function SyncIcon(props) {
       ></path>
     </svg>
   );
-}
+};
 
-export function TrainCarPassenger(props) {
+export const TrainCarPassenger = (props) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -30,9 +30,9 @@ export function TrainCarPassenger(props) {
       ></path>
     </svg>
   );
-}
+};
 
-export function TrainCarContainer(props) {
+export const TrainCarContainer = (props) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -47,9 +47,9 @@ export function TrainCarContainer(props) {
       ></path>
     </svg>
   );
-}
+};
 
-export function TrainCarCenterbeam(props) {
+export const TrainCarCenterbeam = (props) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -64,9 +64,9 @@ export function TrainCarCenterbeam(props) {
       ></path>
     </svg>
   );
-}
+};
 
-export function CheckIcon(props) {
+export const CheckIcon = (props) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -81,9 +81,9 @@ export function CheckIcon(props) {
       ></path>
     </svg>
   );
-}
+};
 
-export function CheckIconBold(props) {
+export const CheckIconBold = (props) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -98,4 +98,4 @@ export function CheckIconBold(props) {
       ></path>
     </svg>
   );
-}
+};

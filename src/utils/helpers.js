@@ -1,17 +1,13 @@
-import { lineColors, directions, aliases } from './constants';
+import { lineColors, aliases } from './constants';
 
-export function getLineColor(lineCode) {
+export const getLineColor = (lineCode) => {
   return lineColors[lineCode] || '#ffffff';
-}
-
-export function getDirection(directionNum) {
-  return directions[directionNum] || 'Unknown';
-}
+};
 
 export const getUniqueValues = (data, key) => {
   let unique = data.map((item) => item[key]);
 
-  return ['all', ...new Set(unique)];
+  return [...new Set(unique)];
 };
 
 export const getAliases = (key, value) => {

@@ -12,7 +12,7 @@ import { useFilter } from './useFilter';
 const CACHE_TIME = 1000 * 60 * 2; // 2 minutes
 const AUTO_REFRESH_TIME = 1000 * 60 * 2; // 2 minutes
 
-function App() {
+const App = () => {
   const [trainData, setTrainData] = useState({});
   const [loading, setLoading] = useState(true);
   const [colorFilter, ColorSelect] = useFilter(
@@ -144,7 +144,7 @@ function App() {
                 <th>Seconds at Location</th>
                 <th>Service Type</th>
                 <th>Car Count</th>
-                <th>Cars</th>
+                <th className='cars'>Cars</th>
               </tr>
             </thead>
             <tbody>
@@ -170,6 +170,6 @@ function App() {
       </div>
     </main>
   );
-}
+};
 
 export default App;
