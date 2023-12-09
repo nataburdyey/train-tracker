@@ -90,6 +90,7 @@ const App = () => {
 
   const filterBy = (key, value, data) =>
     data.filter(
+      // eslint-disable-next-line eqeqeq
       (train) => (train[key] || '(blank)') == value || value === 'all'
     );
 
