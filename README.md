@@ -1,8 +1,10 @@
 # Train Tracker App
 
-Try to complete the user stories below as best you can, and feel free to add in any features you'd like to see that may not be detailed here. The stories are purposefully vague and open to interpretation.
+`Train Tracker` is a react app that tracks the real-time positions and details of WMATA trains in Washington D.C.
 
-## User Stories:
+![Screenshot](public/train-tracker-app.png)
+
+## User Stories (Original Requirements)
 
 - As a user I'd like to be able to see all the trains!
 - As a user I'd like to be able to filter by train line color.
@@ -13,52 +15,71 @@ Try to complete the user stories below as best you can, and feel free to add in 
 - As a user I'd like to be able to distinguish trains by different service types.
 - As a user I'd like to see the page automatically update as the trains' positions update.
 
-App Name: Train Tracker
+## Key Functionalities
+##### 1. Real-time Train Positions:
+- Fetch and display live train positions from the WMATA API.
+- Update the train positions automatically at regular (2 minutes) intervals.
+- Users can manually refresh the displayed train positions with the latest data by clicking the `refresh` icon.
+- The `Last Updated` field clearly displays the time the train position data was last fetched.
+- Provide clear and concise information about each train, including: Line Color, Train Number, Car Count, Service Type, Direction, Destination Station, Seconds At Location.
 
-Description: Track the real-time positions and details of WMATA trains in Washington D.C.
+##### 2. Train Visualization:
+  Display trains with clear visual indicators for:
+- `Line Color`: Trains are represented on rows colored according to their respective lines.
+- `Car Count`: Number of the train icons directly reflects the number of cars on each train.
+- `Service Type`: Different train icons indicate different service types.
 
-Features:
+##### 3. Train Filtering:
 
-Real-time train position tracking: See the location of all WMATA trains on a map, updated in real-time.
-Filter by train line color: Easily identify trains belonging to specific lines (Red, Blue, Yellow, Orange, Green, Silver).
-Filter by service type: View trains operating under Normal, Express, or other service types.
-Filter by car count: Narrow down results based on the number of cars on each train.
-Visual differentiation of trains:
-Line color: Trains are represented on the map by markers colored according to their respective lines.
-Car count: Marker size directly reflects the number of cars on each train.
-Service type: Different marker shapes indicate different service types.
-Automatic updates: The map automatically refreshes with the latest train positions without requiring manual intervention.
-Additional Features:
+- Allow users to filter the displayed trains by: `Line Color`, `Service Type`, `Car Count`, `Destination`, and `Direction`.
+- Provide clear and intuitive filter controls.
+- Implement `Clear All Filters` functionality.
 
-Detailed train information: View additional details about each train, such as train number, destination station, and direction.
-Arrival time predictions: Get estimated arrival times for selected trains at specific stations.
-Accessibility features: Ensure the app is accessible for users with disabilities.
-Technology Stack:
+##### 4. Accessibility:
+- Implement accessibility best practices to ensure the application is usable by everyone, regardless of their abilities.
+- Personalize your page with the option to switch between `light` and `dark themes`.
+- Use appropriate semantic markup: `main`, `header`, `section`, `nav`, etc. 
+- Use clear and consistent labeling for all UI elements.
 
-ReactJS for the user interface
-WMATA API for real-time train data
-Leaflet.js for map visualization
-Benefits:
+##### 5. Data Management:
+- Indicate empty/loading/error states.
+- Cache train position data locally to improve performance and reduce API calls.
 
-Improved commute planning and efficiency
-Real-time visibility of train delays and disruptions
-Enhanced user experience for public transportation users
-Next Steps:
+## SEO Optimization
+- Semantic HTML and appropriate heading tags were used to help search engines understand the organization of the content.
+- Include a `<title>` that accurately describes the page content.
+- Include relevant meta tags such as viewport, description, and keywords in the `<head>` section of the HTML document. 
 
-Develop and implement additional features such as arrival time predictions and accessibility features.
-Enhance the user interface for a more intuitive and engaging experience.
-Integrate with other transportation apps and services for seamless interconnectivity.
-Testing:
+## Next Steps
+- Design a responsive interface that works well on different devices and screen sizes.
+- Add functionality to handle data errors.
+- Monitor app performance with LightHouse and address any reported issues.
+- Add more RTL and E2E tests.
 
-Automated unit tests for individual components
-Integration tests for ensuring communication between different parts of the app
-User acceptance testing with real users to gather feedback and identify potential issues
-Deployment:
+## Technology Stack:
+- ReactJS for the user interface.
+- - `React Hooks` were used to manage state and perform side effects:
+- - `useState`
+- - `useEffect`
+- - `useMemo`
+- - `useRef`
+- WMATA API for real-time train data.
 
-Deploy the app on a web server or mobile platforms (Android and iOS)
-Utilize cloud hosting services for scalability and reliability
-Maintenance:
+## Testing
+- Automated unit tests using React Testing Library to verify user interactions.
 
-Regularly update the app with new features and bug fixes
-Monitor app performance and address any reported issues
-Enhance security measures to protect user data
+![Screenshot](public/rtl-tests.png)
+
+## Deployment
+- Deploy the app to Netlify service.
+
+## Verification Plan
+- [x] Verify the loading indicator is displayed while data is fetching.
+- [x] Verify the refresh button triggers data fetching when clicked.
+- [x] Verify the last updated timestamp is updated after data refresh.
+- [x] Verify the header elements are displayed correctly with appropriate labels.
+- [x] Verify each filter selection updates the displayed train data correctly.
+- [x] Verify the "all" option displays all available trains.
+- [x] Verify the "Clear Filters" button resets all filters to "all".
+- [x] Verify the theme changes between light and dark when the toggle is clicked.
+- [x] Verify the color contrast is sufficient for all text and background combinations.
