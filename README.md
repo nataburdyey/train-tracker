@@ -16,32 +16,31 @@
 - As a user I'd like to see the page automatically update as the trains' positions update.
 
 ## Key Functionalities
-##### 1. Real-time Train Positions:
+#### 1. Real-time Train Positions:
 - Fetch and display live train positions from the WMATA API.
 - Update the train positions automatically at regular (2 minutes) intervals.
 - Users can manually refresh the displayed train positions with the latest data by clicking the `refresh` icon.
 - The `Last Updated` field clearly displays the time the train position data was last fetched.
 - Provide clear and concise information about each train, including: Line Color, Train Number, Car Count, Service Type, Direction, Destination Station, Seconds At Location.
 
-##### 2. Train Visualization:
+#### 2. Train Visualization:
   Display trains with clear visual indicators for:
 - `Line Color`: Trains are represented on rows colored according to their respective lines.
 - `Car Count`: Number of the train icons directly reflects the number of cars on each train.
 - `Service Type`: Different train icons indicate different service types.
 
-##### 3. Train Filtering:
-
+#### 3. Train Filtering:
 - Allow users to filter the displayed trains by: `Line Color`, `Service Type`, `Car Count`, `Destination`, and `Direction`.
 - Provide clear and intuitive filter controls.
 - Implement `Clear All Filters` functionality.
 
-##### 4. Accessibility:
+#### 4. Accessibility:
 - Implement accessibility best practices to ensure the application is usable by everyone, regardless of their abilities.
 - Personalize your page with the option to switch between `light` and `dark themes`.
 - Use appropriate semantic markup: `main`, `header`, `section`, `nav`, etc. 
 - Use clear and consistent labeling for all UI elements.
 
-##### 5. Data Management:
+#### 5. Data Management:
 - Indicate empty/loading/error states.
 - Cache train position data locally to improve performance and reduce API calls.
 
@@ -50,13 +49,7 @@
 - Include a `<title>` that accurately describes the page content.
 - Include relevant meta tags such as viewport, description, and keywords in the `<head>` section of the HTML document. 
 
-## Next Steps
-- Design a responsive interface that works well on different devices and screen sizes.
-- Add functionality to handle data errors.
-- Monitor app performance with LightHouse and address any reported issues.
-- Add more RTL and E2E tests.
-
-## Technology Stack:
+## Tech Stack
 - ReactJS for the user interface.
 - - `React Hooks` were used to manage state and perform side effects:
 - - `useState`
@@ -64,14 +57,14 @@
 - - `useMemo`
 - - `useRef`
 - WMATA API for real-time train data.
+- 
+- ## Deployment
+- Deploy the app to Netlify service.
 
 ## Testing
 - Automated unit tests using React Testing Library to verify user interactions.
 
 ![Screenshot](public/rtl-tests.png)
-
-## Deployment
-- Deploy the app to Netlify service.
 
 ## Verification Plan
 - [x] Verify the loading indicator is displayed while data is fetching.
@@ -83,3 +76,9 @@
 - [x] Verify the "Clear Filters" button resets all filters to "all".
 - [x] Verify the theme changes between light and dark when the toggle is clicked.
 - [x] Verify the color contrast is sufficient for all text and background combinations.
+
+## Next Steps
+- Design a responsive interface that works well on different devices and screen sizes.
+- Add functionality to handle data errors.
+- Monitor app performance and address any reported issues.
+- Add more RTL and E2E tests.
