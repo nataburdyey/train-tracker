@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { Table, ThemeToggle } from './components';
+import { TrainPositionsTable, ThemeToggle } from './components';
 import { SyncIcon } from './components/icons';
 import { useFilter } from './useFilter';
 import { CACHE_TIME, AUTO_REFRESH_TIME } from './utils/constants';
@@ -80,13 +80,15 @@ const App = () => {
 
   useEffect(() => {
     document.body.classList.toggle('dark-theme', isDarkTheme);
+  }, [isDarkTheme]);
 
+  useEffect(() => {
     fetchTrainPositions();
     const interval = setInterval(() => {
       fetchTrainPositions();
     }, AUTO_REFRESH_TIME);
     return () => clearInterval(interval);
-  }, [isDarkTheme]);
+  }, []);
 
   const filterBy = (key, value, data) =>
     data.filter(
@@ -141,7 +143,7 @@ const App = () => {
           </form>
         </nav>
         <section className='train-info'>
-          {!loading && <Table filtered={filtered} />}
+          {!loading && <TrainPositionsTable filtered={filtered} />}
         </section>
       </div>
     </main>

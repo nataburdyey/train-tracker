@@ -2,7 +2,7 @@ import {
   TrainCarPassengerIcon,
   TrainCarContainerIcon,
   TrainCarCenterbeamIcon,
-} from '../components/icons';
+} from './icons';
 
 import { getLineColor, getAliases } from '../utils/helpers';
 
@@ -33,7 +33,7 @@ const renderTrainCars = (train) => {
   return cars;
 };
 
-const Table = ({ filtered }) => {
+const TrainPositionsTable = ({ filtered }) => {
   return (
     <table>
       <thead>
@@ -73,4 +73,4 @@ const Table = ({ filtered }) => {
   );
 };
 
-export default Table;
+export default TrainPositionsTable;
