@@ -57,9 +57,9 @@
 - - `useMemo`
 - - `useRef`
 - WMATA API for real-time train data.
-- 
-- ## Deployment
-- Deploy the app to Netlify service.
+
+ ## Deployment
+- Deploy the app to Netlify service: https://wmata-train-tracker.netlify.app/
 
 ## Testing
 - Automated unit tests using React Testing Library to verify user interactions.
