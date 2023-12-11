@@ -50,13 +50,14 @@
 - Include relevant meta tags such as viewport, description, and keywords in the `<head>` section of the HTML document. 
 
 ## Tech Stack
-- ReactJS for the user interface.
-- - `React Hooks` were used to manage state and perform side effects:
+- `ReactJS`: A popular JavaScript library for building user interfaces. 
+- `React Hooks`: Functions that let you “hook into” React features from function components.
 - - `useState`
 - - `useEffect`
 - - `useMemo`
 - - `useRef`
-- WMATA API for real-time train data.
+- `WMATA API`: An API that provides real-time train data for the Washington Metropolitan Area Transit Authority.
+- `icones.js.org`: A website that provides free SVG icons for various use cases.
 
  ## Deployment
 - Deploy the app to Netlify service: https://wmata-train-tracker.netlify.app/
@@ -77,7 +78,7 @@
 - [x] Verify the theme changes between light and dark when the toggle is clicked.
 - [x] Verify the color contrast is sufficient for all text and background combinations.
 
-## Next Steps
+## Future Enhancements
 - Design a responsive interface that works well on different devices and screen sizes.
 - Add functionality to handle data errors.
 - Monitor app performance and address any reported issues.
