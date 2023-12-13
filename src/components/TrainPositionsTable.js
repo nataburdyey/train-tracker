@@ -11,23 +11,13 @@ const renderTrainCars = (train) => {
   for (let i = 1; i <= train.CarCount; i++) {
     switch (train.ServiceType) {
       case 'Normal':
-        cars.push(
-          <TrainCarPassengerIcon key={i} title={i} aria-label='Passenger car' />
-        );
+        cars.push(<TrainCarPassengerIcon key={i} title={i} />);
         break;
       case 'NoPassengers':
-        cars.push(
-          <TrainCarContainerIcon
-            key={i}
-            title={i}
-            aria-label='No passengers car'
-          />
-        );
+        cars.push(<TrainCarContainerIcon key={i} title={i} />);
         break;
       default:
-        cars.push(
-          <TrainCarCenterbeamIcon key={i} title={i} aria-label='Unknown car' />
-        );
+        cars.push(<TrainCarCenterbeamIcon key={i} title={i} />);
     }
   }
   return cars;

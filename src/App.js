@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { TrainPositionsTable, ThemeToggle } from './components';
+import { TrainPositionsTable, ThemeToggle, FilterForm } from './components';
 import { SyncIcon } from './components/icons';
 import { useFilter } from './useFilter';
 import { CACHE_TIME, AUTO_REFRESH_TIME } from './utils/constants';
@@ -131,16 +131,13 @@ const App = () => {
       </header>
       <div className='container'>
         <nav className='filters'>
-          <form>
-            <ColorSelect aria-label='Line Color' />
-            <ServiceTypeSelect aria-label='Service Type' />
-            <CarCountSelect aria-label='Car Count' />
-            <DestinationSelect aria-label='Destination' />
-            <DirectionSelect aria-label='Direction' />
-            <button type='reset' className='btn-clear'>
-              Clear Filters
-            </button>
-          </form>
+          <FilterForm>
+            <ColorSelect />
+            <ServiceTypeSelect />
+            <CarCountSelect />
+            <DestinationSelect />
+            <DirectionSelect />
+          </FilterForm>
         </nav>
         <section className='train-info'>
           {!loading && <TrainPositionsTable filtered={filtered} />}

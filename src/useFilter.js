@@ -9,22 +9,19 @@ export const useFilter = (key, label, data) => {
     return ['all', ...(data ? getUniqueValues(data, key) : [])];
   }, [key, data]);
 
-  const FilterComponent = () => {
-    const inputRef = useRef(null);
-
+  const FilterComponent = ({ formRef }) => {
     useEffect(() => {
-      if (inputRef.current) {
-        inputRef.current.parentNode.addEventListener('reset', (e) => {
+      if (formRef.current) {
+        formRef.current.addEventListener('reset', (e) => {
           setFilter('all');
         });
       }
-    }, []);
+    }, [formRef]);
 
     switch (key) {
       case 'LineCode':
         return (
           <ColorFilter
-            innerRef={inputRef}
             name={key}
             label={label}
             value={filter}
@@ -35,7 +32,6 @@ export const useFilter = (key, label, data) => {
       default:
         return (
           <SelectFilter
-            innerRef={inputRef}
             name={key}
             label={label}
             value={filter}
