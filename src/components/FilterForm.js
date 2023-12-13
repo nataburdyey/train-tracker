@@ -1,15 +1,11 @@
 import React, { useRef } from 'react';
 
-const FilterForm = ({ children }) => {
+const FilterForm = ({ filters }) => {
   const formRef = useRef(null);
 
-  const childrenWithProps = React.Children.map(children, (child) => {
-    const props = { formRef };
-    if (React.isValidElement(child)) {
-      return React.cloneElement(child, props);
-    }
-    return child;
-  });
+  const childrenWithProps = filters.map((Filter, index) => (
+    <Filter key={index} formRef={formRef} />
+  ));
 
   return (
     <form ref={formRef}>

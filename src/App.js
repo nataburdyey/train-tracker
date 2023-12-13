@@ -131,13 +131,9 @@ const App = () => {
       </header>
       <div className='container'>
         <nav className='filters'>
-          <FilterForm>
-            <ColorSelect />
-            <ServiceTypeSelect />
-            <CarCountSelect />
-            <DestinationSelect />
-            <DirectionSelect />
-          </FilterForm>
+          <FilterForm filters={
+            [ColorSelect, ServiceTypeSelect, CarCountSelect, DestinationSelect, DirectionSelect]
+          }/>
         </nav>
         <section className='train-info'>
           {!loading && <TrainPositionsTable filtered={filtered} />}
