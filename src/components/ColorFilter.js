@@ -1,9 +1,9 @@
 import { CheckIcon } from './icons';
 import { getLineColor } from '../utils/helpers';
 
-const ColorFilter = ({ name, innerRef, label, value, options, onChange }) => {
+const ColorFilter = ({ name, label, value, options, onChange }) => {
   return (
-    <div className='filter' ref={innerRef}>
+    <div className='filter'>
       <label className='filter-label' htmlFor={name}>
         {label}
       </label>

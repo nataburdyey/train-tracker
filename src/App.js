@@ -10,6 +10,7 @@ const App = () => {
   const [trainData, setTrainData] = useState({});
   const [loading, setLoading] = useState(true);
   const [isDarkTheme, setIsDarkTheme] = useState(getInitialDarkMode());
+
   const [colorFilter, ColorSelect] = useFilter(
     'LineCode',
     'Line Color',
@@ -67,7 +68,7 @@ const App = () => {
         const json = await response.json();
         const data = {
           data: json.TrainPositions,
-          expires: Date.now() + CACHE_TIME, // 10 minutes to avoid rate limiting issues
+          expires: Date.now() + CACHE_TIME, // 2 minutes to avoid rate limiting issues
         };
         setTrainData(data);
         setLoading(false);
@@ -131,9 +132,15 @@ const App = () => {
       </header>
       <div className='container'>
         <nav className='filters'>
-          <FilterForm filters={
-            [ColorSelect, ServiceTypeSelect, CarCountSelect, DestinationSelect, DirectionSelect]
-          }/>
+          <FilterForm
+            filters={[
+              ColorSelect,
+              ServiceTypeSelect,
+              CarCountSelect,
+              DestinationSelect,
+              DirectionSelect,
+            ]}
+          />
         </nav>
         <section className='train-info'>
           {!loading && <TrainPositionsTable filtered={filtered} />}

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { getUniqueValues } from './utils/helpers';
 import SelectFilter from './components/SelectFilter';
 import ColorFilter from './components/ColorFilter';

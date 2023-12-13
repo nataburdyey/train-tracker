@@ -1,7 +1,7 @@
 import { getAliases } from '../utils/helpers';
-const SelectFilter = ({ name, innerRef, label, value, options, onChange }) => {
+const SelectFilter = ({ name, label, value, options, onChange }) => {
   return (
-    <div className='filter' ref={innerRef}>
+    <div className='filter'>
       <label className='filter-label' htmlFor={name}>
         {label}
       </label>
