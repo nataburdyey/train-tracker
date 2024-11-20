@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-
 import { TrainPositionsTable, ThemeToggle, FilterForm } from './components';
 import { SyncIcon } from './components/icons';
 import { useFilter } from './useFilter';
@@ -11,72 +10,79 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [isDarkTheme, setIsDarkTheme] = useState(getInitialDarkMode());
 
-  const [colorFilter, ColorSelect] = useFilter(
-    'LineCode',
-    'Line Color',
-    trainData.data
-  );
+  const initializeFilter = (key, label) =>
+    useFilter(key, label, trainData.data);
 
-  const [serviceTypeFilter, ServiceTypeSelect] = useFilter(
+  const [colorFilter, ColorSelect] = initializeFilter('LineCode', 'Line Color');
+  const [serviceTypeFilter, ServiceTypeSelect] = initializeFilter(
     'ServiceType',
-    'Service Type',
-    trainData.data
+    'Service Type'
   );
-
-  const [carCountFilter, CarCountSelect] = useFilter(
+  const [carCountFilter, CarCountSelect] = initializeFilter(
     'CarCount',
-    'Car Count',
-    trainData.data
+    'Car Count'
   );
-
-  const [destinationFilter, DestinationSelect] = useFilter(
+  const [destinationFilter, DestinationSelect] = initializeFilter(
     'DestinationStationCode',
-    'Destination',
-    trainData.data
+    'Destination'
   );
-
-  const [directionFilter, DirectionSelect] = useFilter(
+  const [directionFilter, DirectionSelect] = initializeFilter(
     'DirectionNum',
-    'Direction',
-    trainData.data
+    'Direction'
   );
 
   const toggleDarkTheme = () => {
     const newDarkTheme = !isDarkTheme;
     setIsDarkTheme(newDarkTheme);
-    localStorage.setItem('darkTheme', newDarkTheme);
+    localStorage.setItem('darkTheme', JSON.stringify(newDarkTheme));
   };
 
   const fetchTrainPositions = async (force = false) => {
-    // Verify if data exists in local storage and is not expired
-    const dataStr = localStorage.getItem('trainData');
-    const data = dataStr && JSON.parse(dataStr);
+    const cachedData = localStorage.getItem('trainData');
+    const parsedData = cachedData && JSON.parse(cachedData);
 
-    if (!force && data && data.expires > Date.now()) {
-      setTrainData(data);
+    if (!force && parsedData && parsedData.expires > Date.now()) {
+      setTrainData(parsedData);
       setLoading(false);
       return;
-    } else {
-      const url =
-        'https://api.wmata.com/TrainPositions/TrainPositions?contentType=json';
-      const headers = {
-        api_key: process.env.REACT_APP_PRIMARY_KEY,
-      };
-
-      try {
-        const response = await fetch(url, { headers });
-        const json = await response.json();
-        const data = {
-          data: json.TrainPositions,
-          expires: Date.now() + CACHE_TIME, // 2 minutes to avoid rate limiting issues
-        };
-        setTrainData(data);
-        setLoading(false);
-        localStorage.setItem('trainData', JSON.stringify(data));
-      } catch (error) {
-        console.error(error);
-      }
     }
+
+    try {
+      const response = await fetch(
+        'https://api.wmata.com/TrainPositions/TrainPositions?contentType=json',
+        { headers: { api_key: process.env.REACT_APP_PRIMARY_KEY } }
+      );
+      const json = await response.json();
+      const newData = {
+        data: json.TrainPositions,
+        expires: Date.now() + CACHE_TIME,
+      };
+      setTrainData(newData);
+      localStorage.setItem('trainData', JSON.stringify(newData));
+    } catch (error) {
+      console.error('Failed to fetch train positions:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const applyFilters = (data) => {
+    const filters = [
+      { key: 'LineCode', value: colorFilter },
+      { key: 'ServiceType', value: serviceTypeFilter },
+      { key: 'CarCount', value: carCountFilter },
+      { key: 'DestinationStationCode', value: destinationFilter },
+      { key: 'DirectionNum', value: directionFilter },
+    ];
+
+    return filters.reduce(
+      (filteredData, filter) =>
+        filteredData.filter(
+          (item) =>
+            (item[filter.key] || '(blank)') === filter.value || filter.value === 'all'
+        ),
+      data
+    );
   };
 
   useEffect(() => {
@@ -85,53 +91,38 @@ const App = () => {
 
   useEffect(() => {
     fetchTrainPositions();
-    const interval = setInterval(() => {
-      fetchTrainPositions();
-    }, AUTO_REFRESH_TIME);
-    return () => clearInterval(interval);
+    const refreshInterval = setInterval(fetchTrainPositions, AUTO_REFRESH_TIME);
+    return () => clearInterval(refreshInterval);
   }, []);
 
-  const filterBy = (key, value, data) =>
-    data.filter(
-      // eslint-disable-next-line eqeqeq
-      (train) => (train[key] || '(blank)') == value || value === 'all'
-    );
-
-  let filtered = [];
-  if (trainData.data) {
-    filtered = filterBy('LineCode', colorFilter, trainData.data);
-    filtered = filterBy('ServiceType', serviceTypeFilter, filtered);
-    filtered = filterBy('CarCount', carCountFilter, filtered);
-    filtered = filterBy('DestinationStationCode', destinationFilter, filtered);
-    filtered = filterBy('DirectionNum', directionFilter, filtered);
-  }
-
   if (loading) {
-    return <div className='loading' data-testid='loading'></div>;
+    return <div className="loading" data-testid="loading"></div>;
   }
+
+  const filteredData = trainData.data ? applyFilters(trainData.data) : [];
 
   return (
-    <main role='main'>
+    <main role="main">
       <header>
         <ThemeToggle
           isDarkTheme={isDarkTheme}
           toggleDarkTheme={toggleDarkTheme}
         />
-        <h1 aria-label='WMATA Train Positions'>WMATA Train Positions</h1>
+        <h1 aria-label="WMATA Train Positions">WMATA Train Positions</h1>
         <button
-          className='btn-refresh'
-          aria-label='Refresh Train Positions'
+          className="btn-refresh"
+          aria-label="Refresh Train Positions"
           onClick={() => fetchTrainPositions(true)}
         >
-          <SyncIcon width='1.5em' height='1.5em' />
+          <SyncIcon width="1.5em" height="1.5em" />
         </button>
-        <span className='last-updated'>
+        <span className="last-updated">
           Last updated{' '}
           {new Date(trainData.expires - CACHE_TIME).toLocaleTimeString()}
         </span>
       </header>
-      <div className='container'>
-        <nav className='filters'>
+      <div className="container">
+        <nav className="filters">
           <FilterForm
             filters={[
               ColorSelect,
@@ -142,8 +133,8 @@ const App = () => {
             ]}
           />
         </nav>
-        <section className='train-info'>
-          {!loading && <TrainPositionsTable filtered={filtered} />}
+        <section className="train-info">
+          <TrainPositionsTable filtered={filteredData} />
         </section>
       </div>
     </main>
